@@ -1,75 +1,15 @@
-name: CI/CD Pipeline
+# In deiner .github/workflows/ci.yml
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+# Ändere diese Zeile:
+- name: Setup Node.js
+  uses: actions/setup-node@v3
+  with:
+    node-version: 16  # <-- Hier liegt das Problem
+    cache: 'npm'
 
-jobs:
-  lint:
-    name: Code Linting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          
-      - name: Install Dependencies
-        run: npm ci
-        
-      - name: Run linting
-        run: npm run lint
-
-  test:
-    name: Testing
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          
-      - name: Install Dependencies
-        run: npm ci
-        
-      - name: Run tests
-        run: npm test
-
-  build:
-    name: Build Application
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          
-      - name: Install Dependencies
-        run: npm ci
-        
-      - name: Build project
-        run: npm run build
-        
-  deploy:
-    name: Deploy Application
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deployment simulation
-        run: echo "Deployment successful! The application would be deployed to production now."
+# Zu dieser:
+- name: Setup Node.js
+  uses: actions/setup-node@v3
+  with:
+    node-version: 18  # <-- Auf Version 18 aktualisieren
+    cache: 'npm'
