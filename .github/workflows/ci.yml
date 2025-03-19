@@ -20,9 +20,11 @@ jobs:
         node-version: 18
         
     - name: Install Dependencies
-      run: |
-        echo "Installing dependencies with npm install instead of npm ci"
-        npm install
+      run: npm install
+      
+    - name: Lint (informational only)
+      run: npm run lint || echo "Linting failed but continuing build"
+      continue-on-error: true
       
     - name: Build
       run: npm run build
