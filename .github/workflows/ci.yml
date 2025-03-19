@@ -18,10 +18,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
-        cache: 'npm'
         
     - name: Install Dependencies
-      run: npm ci
+      run: |
+        echo "Installing dependencies with npm install instead of npm ci"
+        npm install
       
     - name: Build
       run: npm run build
